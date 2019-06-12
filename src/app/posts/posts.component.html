@@ -1,0 +1,36 @@
+<h1>Posts</h1>
+<div *ngFor="let post of posts">
+  <div class="card mt-3">
+    <div class="card-body">
+      <h5 class="card-title">{{post.title}}</h5>
+      <h6 class="card-subtitle text-muted">{{post.username}} {{post.date.toLocaleDateString()}}</h6>
+      <p class="card-text">{{post.body}}</p>
+      <button *ngIf="!alreadyLiked(post.id)" (click)="onLike(post.id)" class="btn btn-primary">
+        Like ({{post.likes?.length}})
+      </button>
+      <button *ngIf="alreadyLiked(post.id)" (click)="onUnlike(post.id)" class="btn btn-danger">
+        Unlike ({{post.likes?.length}})
+      </button>
+      <button (click)="toggleComments(post.id)" class="btn btn-primary ml-3">
+        Comments ({{post.comments?.length}})
+      </button>
+    </div>
+  </div>
+  <div *ngIf="showComments(post.id)" class="ml-5">
+    <div class="card comment" *ngFor="let comment of post.comments">
+      <div class="like">
+        <i class="fa fa-heart"></i>
+      </div>
+
+      <div class="card-body">
+        <h6 class="card-title" style="margin-bottom: 0.3rem">{{comment.username}}</h6>
+        <h6 class="card-subtitle text-muted" style="font-size: 90%">{{comment.date.toLocaleDateString()}}</h6>
+        {{comment.body}}
+      </div>
+    </div>
+    <!-- add text area for comments -->
+    <form>
+
+    </form>
+  </div>
+</div>
