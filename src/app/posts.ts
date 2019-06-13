@@ -9,6 +9,7 @@ export interface Comment {
   username: string;
   body: string;
   date: Date;
+  likes?: Like[];
 }
 
 export interface Post {

@@ -11,6 +11,10 @@ export class AuthService {
     return !!this.currentUserName;
   }
 
+  getCurrentUserName(){
+    return this.currentUserName;
+  }
+
   logout() {
     this.currentUserName = null;
     this.usernameSubject.next(this.currentUserName);

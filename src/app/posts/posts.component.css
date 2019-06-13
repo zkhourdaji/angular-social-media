@@ -1,20 +1,22 @@
-/* .comment i {
+.heart {
   float: left;
-  width: 2px;
-} */
+  /* padding: 20px 0 20px 25px; */
+  padding-top: 15px;
+  width: 50px;
+  text-align: center;
+}
+
+.comment__body {
+  padding: 0.6rem;
+  width: 200px;
+  /* margin-left: 10px; */
+}
+
+.comment {
+  flex-direction: row;
+  margin: 5px 0;
+}
 
 .like {
-  float: left;
-  padding: 25px 0;
-  padding-left: 15px;
-}
-
-.comment .card-body {
-  padding: 0.5rem;
-  width: 200px;
-  margin-left: 50px;
-}
-
-.card {
-  display: block
+  color: red;
 }

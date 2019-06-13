@@ -18,11 +18,14 @@
   </div>
   <div *ngIf="showComments(post.id)" class="ml-5">
     <div class="card comment" *ngFor="let comment of post.comments">
-      <div class="like">
-        <i class="fa fa-heart"></i>
+      <div (click)="onCommentLike(post.id, comment.id)" class="heart">
+        <i [class.like]="isCommentLiked(post.id, comment.id)" class="fa fa-heart"></i>
+        <br>
+        <span>{{getCommentLikeCount(post.id, comment.id)}}</span>
+
       </div>
 
-      <div class="card-body">
+      <div class="card-body comment__body">
         <h6 class="card-title" style="margin-bottom: 0.3rem">{{comment.username}}</h6>
         <h6 class="card-subtitle text-muted" style="font-size: 90%">{{comment.date.toLocaleDateString()}}</h6>
         {{comment.body}}
