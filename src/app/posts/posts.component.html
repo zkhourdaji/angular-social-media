@@ -5,10 +5,10 @@
       <h5 class="card-title">{{post.title}}</h5>
       <h6 class="card-subtitle text-muted">{{post.username}} {{post.date.toLocaleDateString()}}</h6>
       <p class="card-text">{{post.body}}</p>
-      <button *ngIf="!alreadyLiked(post.id)" (click)="onLike(post.id)" class="btn btn-primary">
+      <button *ngIf="!alreadyLiked(post.id)" (click)="onPostLike(post.id)" class="btn btn-primary">
         Like ({{post.likes?.length}})
       </button>
-      <button *ngIf="alreadyLiked(post.id)" (click)="onUnlike(post.id)" class="btn btn-danger">
+      <button *ngIf="alreadyLiked(post.id)" (click)="onPostUnlike(post.id)" class="btn btn-danger">
         Unlike ({{post.likes?.length}})
       </button>
       <button (click)="toggleComments(post.id)" class="btn btn-primary ml-3">

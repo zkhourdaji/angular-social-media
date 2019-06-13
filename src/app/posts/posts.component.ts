@@ -40,7 +40,7 @@ export class PostsComponent implements OnInit, OnDestroy {
   }
 
   // TODO: rename to onPostLike
-  onLike(postId: number) {
+  onPostLike(postId: number) {
     this.postsService.likePost(postId);
   }
 
@@ -49,7 +49,7 @@ export class PostsComponent implements OnInit, OnDestroy {
   }
 
   // TODO: rename to onPostUnlike
-  onUnlike(postId: number) {
+  onPostUnlike(postId: number) {
     this.postsService.unlikePost(postId);
   }
 

@@ -3,15 +3,29 @@
     <div class="col-md-6">
       <div class="form-group">
         <label for="username">Username</label>
+        <em *ngIf="requiredCheck(username)" class="errorMessage">
+          Username is required
+        </em>
+        <em *ngIf="minLengthCheck(username)" class="errorMessage">
+          Must be atleast 2 characters
+        </em>
         <input id="username" formControlName="username" class="form-control" type="text" placeholder="username" />
       </div>
 
       <div class="form-group">
         <label for="password">Password</label>
+        <em *ngIf="requiredCheck(password)" class="errorMessage">
+          Password is required
+        </em>
+        <em *ngIf="minLengthCheck(password)" class="errorMessage">
+          Must be atleast 2 characters
+        </em>
         <input id="password" formControlName="password" class="form-control" type="password" placeholder="password" />
       </div>
 
-      <button type="submit" [disabled]="!signinForm.valid" class="btn btn-primary">Signin</button>
+      <button type="submit" [disabled]="!signinForm.valid" class="btn btn-primary">
+        Signin
+      </button>
     </div>
   </div>
 </form>
