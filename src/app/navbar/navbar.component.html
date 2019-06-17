@@ -33,7 +33,6 @@
         <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
       </form>
 
-      <!-- TODO: dont call the service method -->
       <ul *ngIf="!username" class="navbar-nav mr-auto ml-5">
         <li class="nav-item">
           <button routerLink="/signin" class="btn btn-outline-light my-2">Sign in</button>
@@ -43,7 +42,6 @@
         </li>
       </ul>
 
-      <!-- TODO: dont call the service method -->
       <ul *ngIf="username" class="navbar-nav mr-auto ml-5">
         <li class="nav-item">
           <a class="nav-link my-2" style="color:white;">Hello {{username}}</a>
@@ -55,3 +53,26 @@
     </div>
   </div>
 </nav>
+
+
+<!-- TODO: use angular material in the future -->
+<!-- <mat-toolbar color="primary">
+  <div fxHide.gt-xs>
+    <button mat-icon-button (click)="onToggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div>
+    <a routerLink="/home">Owner-Account</a>
+  </div>
+  <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+    <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+      <li>
+        <a routerLink="/owner">Owner Actions</a>
+      </li>
+      <li>
+        <a routerLink="/account">Account Actions</a>
+      </li>
+    </ul>
+  </div>
+</mat-toolbar> -->

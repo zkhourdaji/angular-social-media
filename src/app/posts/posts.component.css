@@ -20,3 +20,12 @@
 .like {
   color: red;
 }
+
+.addComment {
+  display: flex;
+  flex-direction: row;
+}
+
+.addComment__button {
+  
+}

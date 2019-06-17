@@ -14,8 +14,18 @@ import { PostsComponent } from './posts/posts.component';
 import { AlreadyLiked } from './pipes/already-liked.pipe';
 import { AuthGuard } from './services/auth.guard';
 import { PostsService } from './services/posts.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MyMaterialModule } from './my-material-module/my-material.module';
 
 @NgModule({
+  imports: [
+    BrowserModule,
+    MyMaterialModule,
+    RouterModule.forRoot(appRoutes),
+    ReactiveFormsModule,
+    FormsModule,
+    BrowserAnimationsModule,
+  ],
   declarations: [
     AppComponent,
     NavbarComponent,
@@ -23,12 +33,6 @@ import { PostsService } from './services/posts.service';
     SignUpComponent,
     PostsComponent,
     AlreadyLiked,
-  ],
-  imports: [
-    BrowserModule,
-    RouterModule.forRoot(appRoutes),
-    ReactiveFormsModule,
-    FormsModule
   ],
   providers: [AuthService, AuthGuard, PostsService],
   bootstrap: [AppComponent]

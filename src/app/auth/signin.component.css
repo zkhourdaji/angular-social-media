@@ -1,4 +1,14 @@
-.errorMessage {
-  float: right;
+.form__errorMessage {
+  text-align: right;
   color: red;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.form__submit {
+  align-self: flex-end;
 }

@@ -46,7 +46,7 @@ export class PostsService {
       comment.likes = [...(comment.likes || []), { username: currentUsername }];
     }
     this.postsSubject.next(this.posts);
-    console.log(comment.likes);
+    // console.log(comment.likes);
   }
 
 
@@ -71,8 +71,16 @@ export class PostsService {
 
   }
 
-  addComment(postId: number) {
-
+  addComment(postId: number, comment: string): void {
+    const username = this.authService.getCurrentUserName();
+    const post = this.posts.find(p => p.id === postId);
+    post.comments.push({
+      id: 99,
+      username,
+      body: comment,
+      date: new Date()
+    });
+    this.postsSubject.next(this.posts);
   }
 
   deleteComment(postId: number, commentId: number) {
