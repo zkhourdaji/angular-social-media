@@ -1,0 +1,26 @@
+<div class="ml-5">
+  <!-- Add Comment Form -->
+  <form (ngSubmit)="onAddComment()">
+    <div class="form-group addComment mt-4">
+      <textarea type="text" class="form-control addComment__textarea" placeholder="Add a comment ..."
+        [formControl]="newComment">
+          </textarea>
+      <button class="btn btn-success addComment__button" type="submit">Add Comment</button>
+    </div>
+    <div style="clear: both"></div>
+  </form>
+  <!-- List of comments -->
+  <div class="card comment" *ngFor="let comment of comments">
+    <div (click)="onCommentLike(comment.id)" class="heart">
+      <i [class.like]="isCommentLiked(comment.id)" class="fa fa-heart"></i>
+      <br>
+      <span>{{getCommentLikeCount(comment.id)}}</span>
+    </div>
+
+    <div class="card-body comment__body">
+      <h6 class="card-title" style="margin-bottom: 0.3rem">{{comment.username}}</h6>
+      <h6 class="card-subtitle text-muted" style="font-size: 90%">{{comment.date.toLocaleDateString()}}</h6>
+      {{comment.body}}
+    </div>
+  </div>
+</div>

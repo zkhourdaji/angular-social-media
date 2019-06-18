@@ -1,3 +1,5 @@
+//TODO: renmae to models
+
 export interface Like {
   // TODO: user userId instead of username
   username: string;
@@ -22,6 +24,11 @@ export interface Post {
   date: Date;
   comments?: Comment[];
   likes?: Like[];
+}
+
+export interface NewPost {
+  title: string;
+  body: string;
 }
 
 export const posts: Post[] = [

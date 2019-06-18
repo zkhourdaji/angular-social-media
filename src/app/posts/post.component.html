@@ -1,0 +1,19 @@
+<div class="card mt-3">
+  <div class="card-body">
+    <h5 class="card-title">{{post.title}}</h5>
+    <h6 class="card-subtitle text-muted">{{post.username}} {{post.date.toLocaleDateString()}}</h6>
+    <p class="card-text">{{post.body}}</p>
+    <button *ngIf="!liked" (click)="onPostLike(post.id)" class="btn btn-primary">
+      Like <span>({{post.likes?.length || 0}})</span>
+    </button>
+    <button *ngIf="liked" (click)="onPostUnlike(post.id)" class="btn btn-danger">
+      Unlike <span>({{post.likes?.length || 0}})</span>
+    </button>
+    <button (click)="toggleComments()" class="btn btn-primary ml-3">
+      Comments <span>({{post.comments?.length || 0}})</span>
+    </button>
+  </div>
+</div>
+
+<!-- Show Comments on Post -->
+<app-comments-component  *ngIf="showComments" [postId]="postId"></app-comments-component>

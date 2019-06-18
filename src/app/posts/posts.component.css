@@ -24,8 +24,15 @@
 .addComment {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+}
+
+.addComment__textarea {
+  width: 80%;
 }
 
 .addComment__button {
-  
+  /* justify-self: right; */
+  height: 37px;
+  align-self: flex-end;
 }

@@ -1,0 +1,11 @@
+<form (ngSubmit)="onAddPost()" [formGroup]="newPost">
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input id="title" formControlName="title" name="title" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label for="body">Post</label>
+    <textarea id="body" formControlName="body" name="body" class="form-control"></textarea>
+  </div>
+  <button style="float: right" class="btn btn-success">Add Post</button>
+</form>
