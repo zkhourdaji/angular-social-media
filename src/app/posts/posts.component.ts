@@ -9,22 +9,16 @@ import { FormControl, FormGroup } from '@angular/forms';
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.css']
 })
-export class PostsComponent implements OnInit, OnDestroy {
+export class PostsComponent implements OnInit {
 
   currentUsername: string;
   usernameSubscription: Subscription;
   postsSubscription: Subscription;
 
-
-
   constructor(private authService: AuthService, private postsService: PostsService) { }
 
   ngOnInit() {
     this.authService.username.subscribe(username => this.currentUsername = username);
-
   }
-
-
-  
 
 }
