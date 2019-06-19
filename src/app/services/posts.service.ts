@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Post, posts, Comment, Like, NewPost } from '../posts';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject, from } from 'rxjs';
+import { first, mergeMap, filter, pluck } from 'rxjs/operators';
 
 @Injectable()
 export class PostsService {
@@ -13,8 +13,6 @@ export class PostsService {
   private posts: Post[] = posts;
   constructor(private authService: AuthService) {
     this.postsSubject = new BehaviorSubject<Post[]>(this.posts);
-    this.commentsSubject = new BehaviorSubject<Comment[]>([]);
-
   }
 
   alreadyLiked(postId: number, username: string) {
@@ -27,7 +25,6 @@ export class PostsService {
 
   // TODO: get value from behavioral subject
   likePost(postId: number) {
-    // first() automatically unsubscribes after first emitted value
     const username = this.authService.getCurrentUserName();
     const post = this.posts.find(p => p.id === postId);
     // dont do anything if user alreadly liked this post
@@ -114,15 +111,11 @@ export class PostsService {
     return comment.likes ? comment.likes.length : 0;
   }
 
-  // getCommentsByPostId(postId: number): Comment[] {
-  //   return this.getPostById(postId).comments;
-  // }
-
   getComomentsByPostId(postId: number): Observable<Comment[]> {
-    const post = this.getPostById(postId);
-
-    this.commentsSubject.next(post.comments);
-    return this.commentsSubject.asObservable();
+    return this.postsSubject.pipe(mergeMap((posts: Post[]) => from(posts).pipe(
+      filter((post: Post) => post.id === postId),
+      pluck('comments')
+    )));
   }
 
   isCommentLiked(postId: number, commentId: number): boolean {

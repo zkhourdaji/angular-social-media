@@ -22,21 +22,8 @@ export class CommentsComponent implements OnInit {
   constructor(private postsService: PostsService) { }
 
   ngOnInit() {
-    // this.postsService.getAllPosts().subscribe((posts: Post[]) => {
-    //   from(posts).pipe(
-    //     filter((post: Post) => post.id === this.postId),
-    //     pluck('comments')
-    //     ).subscribe((comments: Comment[]) => this.comments = comments);
-    // });
-
-    this.postsService.getAllPosts()
-      .pipe(mergeMap((posts: Post[]) => from(posts).pipe(
-        filter((post: Post) => post.id === this.postId),
-        pluck('comments')
-      ))).subscribe((comments: Comment[]) => {
-        this.comments = comments;
-        console.log(this.comments);
-      });
+    this.postsService.getComomentsByPostId(this.postId)
+      .subscribe((comments: Comment[]) => this.comments = comments);
   }
 
   onCommentLike(commentId: number) {
