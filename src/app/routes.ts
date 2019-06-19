@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { SignInComponent } from './auth/signin.component';
 import { SignUpComponent } from './auth/signup.component';
 import { AuthGuard } from './services/auth.guard';
-import { PostsContainerComponent } from './posts/posts-container.component';
+import { PostsContainerComponent } from './posts-container/posts-container.component';
 
 export const appRoutes: Routes = [
   { path: 'signin', component: SignInComponent },
