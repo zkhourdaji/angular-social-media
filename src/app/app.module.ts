@@ -5,7 +5,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './services/auth-service/auth.service';
 
 import { appRoutes } from './routes';
 import { SignInComponent } from './auth/signin.component';

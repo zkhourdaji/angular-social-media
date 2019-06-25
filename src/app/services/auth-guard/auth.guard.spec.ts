@@ -1,4 +1,4 @@
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth-service/auth.service';
 import { AuthGuard } from './auth.guard';
 import { Router } from '@angular/router';
 

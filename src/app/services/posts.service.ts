@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from './auth.service';
+import { AuthService } from './auth-service/auth.service';
 import { Post, posts, Comment, Like, NewPost } from '../posts';
 import { BehaviorSubject, Observable, Subject, from } from 'rxjs';
 import { first, mergeMap, filter, pluck } from 'rxjs/operators';
