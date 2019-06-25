@@ -1,11 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PortalHostDirective } from '@angular/cdk/portal';
 import { FormControl } from '@angular/forms';
 import { PostsService } from '../services/posts.service';
-import { Comment, Post } from '../posts';
-import { from } from 'rxjs';
-import { post } from 'selenium-webdriver/http';
-import { filter, pluck, mergeMap } from 'rxjs/operators';
+import { Comment } from '../posts';
 
 
 @Component({

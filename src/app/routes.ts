@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { SignInComponent } from './auth/signin.component';
 import { SignUpComponent } from './auth/signup.component';
-import { AuthGuard } from './services/auth.guard';
+import { AuthGuard } from './services/auth-guard/auth.guard';
 import { PostsContainerComponent } from './posts-container/posts-container.component';
 
 export const appRoutes: Routes = [
