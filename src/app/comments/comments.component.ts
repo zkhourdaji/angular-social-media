@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { PostsService } from '../services/posts.service';
+import { PostsService } from '../services/posts-service/posts.service';
 import { Comment } from '../posts';
 
 
@@ -36,7 +36,6 @@ export class CommentsComponent implements OnInit {
   }
 
   isCommentLiked(commentId: number): boolean {
-    console.log("commend id: " + commentId);
     return this.postsService.isCommentLiked(this.postId, commentId);
   }
 }

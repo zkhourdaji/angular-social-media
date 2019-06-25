@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from './auth-service/auth.service';
-import { Post, posts, Comment, Like, NewPost } from '../posts';
+import { AuthService } from '../auth-service/auth.service';
+import { Post, posts, Comment, Like, NewPost } from '../../posts';
 import { BehaviorSubject, Observable, Subject, from } from 'rxjs';
 import { first, mergeMap, filter, pluck } from 'rxjs/operators';
 
@@ -8,22 +8,48 @@ import { first, mergeMap, filter, pluck } from 'rxjs/operators';
 export class PostsService {
 
   private postsSubject: BehaviorSubject<Post[]>;
-  private commentsSubject: BehaviorSubject<Comment[]>;
 
   private posts: Post[] = posts;
   constructor(private authService: AuthService) {
     this.postsSubject = new BehaviorSubject<Post[]>(this.posts);
   }
 
-  alreadyLiked(postId: number, username: string) {
-    const post = posts.find(p => p.id === postId);
-    if (post.likes && post.likes.some(l => l.username === username)) {
-      return true;
-    }
-    return false;
+  // =============== POSTS METHODS ==================
+
+  getAllPosts(): Observable<Post[]> {
+    return this.postsSubject.asObservable();
   }
 
-  // TODO: get value from behavioral subject
+  // this is used for unit testing
+  clearPosts(): void {
+    this.posts = [];
+    this.postsSubject.next(this.posts);
+  }
+
+  addPost(newPost: NewPost): void {
+    if (!this.authService.isAuthenticated()) {
+      throw new Error('Posts Service: Cant add post if user is not authenticated!');
+    }
+    this.posts.push({
+      username: this.authService.getCurrentUserName(),
+      id: this.getNewPostId(),
+      date: new Date(),
+      ...newPost,
+
+    });
+    this.postsSubject.next(this.posts);
+   // console.log(this.posts);
+  }
+
+  getPostById(postId: number) {
+    return this.posts.find(p => p.id === postId);
+  }
+
+  //TODO: implement
+  updatePost(postId: number) {
+
+  }
+
   likePost(postId: number) {
     const username = this.authService.getCurrentUserName();
     const post = this.posts.find(p => p.id === postId);
@@ -34,20 +60,6 @@ export class PostsService {
     post.likes = [...post.likes || [], { username }];
     this.postsSubject.next(this.posts);
   }
-
-  toggleLikeComment(postId: number, commentId: number) {
-    const currentUsername = this.authService.getCurrentUserName();
-    const postComments: Comment[] = this.posts.find(p => p.id === postId).comments;
-    const comment = postComments.find((c: Comment) => c.id === commentId);
-    if (comment.likes && comment.likes.some((l: Like) => l.username === currentUsername)) {
-      comment.likes = comment.likes.filter((l: Like) => l.username !== currentUsername);
-    } else {
-      comment.likes = [...(comment.likes || []), { username: currentUsername }];
-    }
-    this.postsSubject.next(this.posts);
-    // console.log(comment.likes);
-  }
-
 
   unlikePost(postId: number) {
     // first() automatically unsubscribes after first emitted value
@@ -62,20 +74,57 @@ export class PostsService {
     });
   }
 
-  getAllPosts(): Observable<Post[]> {
-    return this.postsSubject.asObservable();
+  private getNewPostId(): number {
+    let maxId = 0;
+    this.posts.forEach((post: Post) => {
+      if (post.id > maxId) {
+        maxId = post.id + 1;
+      }
+    });
+    return maxId;
   }
 
-  updatePost(postId: number) {
+  alreadyLiked(postId: number, username: string) {
+    const post = posts.find(p => p.id === postId);
+    if (post.likes && post.likes.some(l => l.username === username)) {
+      return true;
+    }
+    return false;
+  }
 
+
+  // ================== COMMENTS METHODS ======================
+
+  toggleLikeComment(postId: number, commentId: number) {
+    const currentUsername = this.authService.getCurrentUserName();
+    const postComments: Comment[] = this.posts.find(p => p.id === postId).comments;
+    const comment = postComments.find((c: Comment) => c.id === commentId);
+    if (comment.likes && comment.likes.some((l: Like) => l.username === currentUsername)) {
+      comment.likes = comment.likes.filter((l: Like) => l.username !== currentUsername);
+    } else {
+      comment.likes = [...(comment.likes || []), { username: currentUsername }];
+    }
+    this.postsSubject.next(this.posts);
+    // console.log(comment.likes);
+  }
+
+  getNewCommentId(post: Post) {
+    let maxId = 0;
+    if (post.comments) {
+      post.comments.forEach((comment: Comment) => {
+        if (comment.id > maxId) {
+          maxId = comment.id + 1;
+        }
+      });
+    }
+    return maxId;
   }
 
   addComment(postId: number, comment: string): void {
     const username = this.authService.getCurrentUserName();
     const post = this.posts.find(p => p.id === postId);
     post.comments = [...post.comments || [], {
-      // TODO: dont hardcode id
-      id: 99,
+      id: this.getNewCommentId(post),
       username,
       body: comment,
       date: new Date()
@@ -88,22 +137,6 @@ export class PostsService {
 
   }
 
-
-  addPost(newPost: NewPost): void {
-    this.posts.push({
-      username: this.authService.getCurrentUserName(),
-      // TODO: dont hardcode id
-      id: 9,
-      date: new Date(),
-      ...newPost,
-
-    });
-    this.postsSubject.next(this.posts);
-  }
-
-  getPostById(postId: number) {
-    return this.posts.find(p => p.id === postId);
-  }
 
   getCommentLikeCount(postId: number, commentId: number) {
     const post = this.getPostById(postId);

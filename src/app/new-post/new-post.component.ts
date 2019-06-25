@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { PostsService } from '../services/posts.service';
+import { PostsService } from '../services/posts-service/posts.service';
 
 @Component({
   selector: 'app-new-post-form-component',

@@ -12,7 +12,7 @@ import { SignInComponent } from './auth/signin.component';
 import { SignUpComponent } from './auth/signup.component';
 import { AlreadyLiked } from './pipes/already-liked.pipe';
 import { AuthGuard } from './services/auth-guard/auth.guard';
-import { PostsService } from './services/posts.service';
+import { PostsService } from './services/posts-service/posts.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyMaterialModule } from './my-material-module/my-material.module';
 import { PostsContainerComponent } from './posts-container/posts-container.component';

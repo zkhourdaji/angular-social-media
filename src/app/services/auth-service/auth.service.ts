@@ -4,8 +4,8 @@ import { Subject, Observable, BehaviorSubject } from 'rxjs';
 @Injectable()
 export class AuthService {
 
-  private usernameSubject = new BehaviorSubject<string>(null);
-  private currentUserName: string = null;
+  private usernameSubject = new BehaviorSubject<string>('Zafer');
+  private currentUserName: string = 'Zafer';
 
   isAuthenticated() {
     return !!this.currentUserName;

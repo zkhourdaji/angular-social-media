@@ -15,11 +15,14 @@ describe('Auth Service', () => {
   });
 
   it('isAuthenticated should return false if no user is signed in', () => {
+    authService.logout();
     const isAuthenticatedResult = authService.isAuthenticated();
     expect(isAuthenticatedResult).toBe(false);
   });
 
   it('getCurrentUserName should return the current signed in username or empty string if no user is signed in', () => {
+    // make sure no user is logged in
+    authService.logout();
     const firstAttempt = authService.getCurrentUserName();
     expect(firstAttempt).toBeNull();
 
@@ -37,6 +40,8 @@ describe('Auth Service', () => {
 
   it('get username observable should emit current username upon signin and null upon signout', () => {
     let username: string;
+    // make sure no user is logged in
+    authService.logout();
     const subscription = authService.username.subscribe(emittedUsername => username = emittedUsername);
     expect(username).toBeNull();
     authService.signin({ username: 'Zafer', password: 'Password' });
